@@ -45,7 +45,7 @@
       font-size: 15px;
       cursor: pointer;
       position: relative;
-      transition: transform 0.1s ease;
+      transition: transform 0.05s ease;
     }
 
     .yes {
@@ -195,10 +195,10 @@
 
       // YES grows bigger the closer the cursor to NO
       let scale = 1 + Math.max(0, 200 - distance) / 50; // grows fast
-      scale = Math.min(scale, 3); // max 3x bigger
+      scale = Math.min(scale, 4); // max 4x bigger for dramatic effect
       yesBtn.style.transform = `scale(${scale})`;
 
-      // NO runs faster the closer cursor is
+      // NO runs away more frantically when closer
       if(distance < 100) {
         runAway(noBtn, distance);
       }
