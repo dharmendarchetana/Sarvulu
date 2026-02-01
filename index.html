@@ -4,45 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Will you be my Sarvulu?</title>
+  <!-- Monospace coding font -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* --- Body & Background --- */
     body {
       margin: 0;
       padding: 0;
-      background-color: #fff176; /* sunny yellow */
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Fira Code', monospace;
+      background: #fff9c4; /* baby yellow */
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       text-align: center;
-      overflow: hidden;
       position: relative;
+      color: #333;
     }
 
-    /* Sunflower pattern */
-    body::before {
-      content: '';
+    /* Sunflower particles */
+    .sunflower {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: url('https://images.unsplash.com/photo-1606788075760-1c87df3d7b4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080');
-      opacity: 0.15;
-      background-repeat: repeat;
-      z-index: -1;
+      width: 80px;
+      animation: sway 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes sway {
+      0% { transform: rotate(0deg); }
+      50% { transform: rotate(5deg); }
+      100% { transform: rotate(-5deg); }
     }
 
     h1 {
       font-size: 2.8rem;
-      margin: 20px;
       color: #ff6f00;
-      text-shadow: 2px 2px #fff8c6;
+      text-shadow: 1px 1px #fff8c6;
+      margin: 0 20px;
     }
 
     p {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
+      font-size: 1.4rem;
       color: #6d4c41;
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 1.3rem;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      font-family: 'Fira Code', monospace;
+    }
+
+    #yesBtn {
+      background-color: #ffeb3b;
+      color: #222;
+      transform-origin: center;
+    }
+
+    #noBtn {
+      background-color: #f06292;
+      color: #fff;
     }
 
     #note {
@@ -53,39 +80,21 @@
       transition: opacity 1.5s ease;
     }
 
-    /* --- Buttons --- */
-    button {
-      font-size: 1.2rem;
-      padding: 15px 30px;
-      margin: 10px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    }
-
-    #yesBtn {
-      background-color: #ffeb3b;
-      color: #795548;
-    }
-
-    #noBtn {
-      background-color: #f06292;
-      color: #fff;
-    }
-
-    /* --- Chick Animation --- */
-    #chick {
+    /* Chick hatching animation */
+    .egg {
       position: absolute;
-      bottom: -100px;
+      bottom: -80px;
       width: 100px;
       transition: bottom 1s ease;
     }
 
-    /* Smooth grow for YES button */
-    #yesBtn {
-      transform-origin: center;
+    .hatched {
+      animation: hop 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes hop {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
     }
   </style>
 </head>
@@ -98,7 +107,7 @@
     <button id="noBtn">NO</button>
   </div>
 
-  <img id="chick" src="https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif" alt="chick hatching">
+  <img id="chick" class="egg" src="https://i.imgur.com/7M8d2qK.png" alt="chick hatching">
 
   <div id="note">Let's take it one step at a time ❤️</div>
 
@@ -120,12 +129,22 @@
     ];
     let clickCount = 0;
 
+    // Generate floating sunflowers
+    for (let i = 0; i < 8; i++) {
+      const sf = document.createElement('img');
+      sf.src = 'https://i.imgur.com/4QfKuz1.png'; // sunflower PNG
+      sf.classList.add('sunflower');
+      sf.style.top = Math.random() * 80 + '%';
+      sf.style.left = Math.random() * 90 + '%';
+      sf.style.width = 50 + Math.random() * 50 + 'px';
+      sf.style.animationDuration = 3 + Math.random() * 4 + 's';
+      document.body.appendChild(sf);
+    }
+
     noBtn.addEventListener('click', () => {
-      // Grow the YES button
       yesSize += 0.2;
       yesBtn.style.transform = `scale(${yesSize})`;
 
-      // Cycle NO button text
       if (clickCount < noMessages.length) {
         noBtn.textContent = noMessages[clickCount];
       } else {
@@ -133,18 +152,13 @@
       }
       clickCount++;
 
-      // Chick pops up slightly
-      chick.style.bottom = `${20 + Math.min(clickCount * 10, 60)}px`;
+      chick.style.bottom = `${20 + Math.min(clickCount * 15, 100)}px`;
     });
 
     yesBtn.addEventListener('click', () => {
       alert("Yay! You made the right choice ❤️");
       note.style.opacity = 1;
-      // Chick jumps excitedly
-      chick.style.bottom = '100px';
-      setTimeout(() => {
-        chick.style.bottom = '60px';
-      }, 500);
+      chick.classList.add('hatched');
     });
   </script>
 </body>
