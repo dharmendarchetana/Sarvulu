@@ -1,123 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Will you be my Sarvulu?</title>
-  <!-- Monospace coding font -->
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+  <title>For Sarvulu</title>
+
   <style>
     body {
+      height: 100vh;
       margin: 0;
-      padding: 0;
-      font-family: 'Fira Code', monospace;
-      background: #fff9c4; /* baby yellow */
-      overflow: hidden;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 22px;
       text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      max-width: 340px;
       position: relative;
-      color: #333;
-    }
-
-    /* Sunflower particles */
-    .sunflower {
-      position: absolute;
-      width: 80px;
-      animation: sway 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes sway {
-      0% { transform: rotate(0deg); }
-      50% { transform: rotate(5deg); }
-      100% { transform: rotate(-5deg); }
     }
 
     h1 {
-      font-size: 2.8rem;
-      color: #ff6f00;
-      text-shadow: 1px 1px #fff8c6;
-      margin: 0 20px;
+      color: #ff4d6d;
+      font-size: 22px;
+      line-height: 1.4;
     }
 
     p {
-      font-size: 1.4rem;
-      color: #6d4c41;
-      margin-bottom: 30px;
+      color: #555;
+      font-size: 15px;
+      margin-bottom: 25px;
     }
 
     button {
-      font-size: 1.3rem;
-      padding: 15px 30px;
+      padding: 12px 25px;
       margin: 10px;
       border: none;
-      border-radius: 8px;
+      border-radius: 20px;
+      font-size: 15px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
-      font-family: 'Fira Code', monospace;
+      position: relative;
+      transition: transform 0.05s ease;
     }
 
-    #yesBtn {
-      background-color: #ffeb3b;
-      color: #222;
-      transform-origin: center;
+    .yes {
+      background: #ff4d6d;
+      color: white;
+      z-index: 2;
     }
 
-    #noBtn {
-      background-color: #f06292;
-      color: #fff;
+    .no {
+      background: #ddd;
+      z-index: 1;
+      position: relative;
     }
 
-    #note {
-      margin-top: 50px;
-      font-size: 1.2rem;
-      color: #4e342e;
-      opacity: 0;
-      transition: opacity 1.5s ease;
+    /* ---------- CAT ANIMATION ---------- */
+    .cat {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      position: relative;
+      animation: float 2.5s ease-in-out infinite;
     }
 
-    /* Chick hatching animation */
-    .egg {
+    .cat-face {
+      width: 60px;
+      height: 50px;
+      background: #ffd6dc;
+      border-radius: 50% 50% 45% 45%;
+      position: relative;
+    }
+
+    .ear {
+      width: 18px;
+      height: 18px;
+      background: #ffd6dc;
       position: absolute;
-      bottom: -80px;
-      width: 100px;
-      transition: bottom 1s ease;
+      top: -8px;
+      border-radius: 4px;
+      transform: rotate(45deg);
     }
 
-    .hatched {
-      animation: hop 0.5s ease-in-out infinite alternate;
+    .ear.left { left: 6px; }
+    .ear.right { right: 6px; }
+
+    .eye {
+      width: 6px;
+      height: 6px;
+      background: #444;
+      border-radius: 50%;
+      position: absolute;
+      top: 22px;
+      animation: blink 4s infinite;
     }
 
-    @keyframes hop {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-20px); }
+    .eye.left { left: 18px; }
+    .eye.right { right: 18px; }
+
+    @keyframes blink {
+      0%, 95%, 100% { height: 6px; }
+      97% { height: 1px; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
   </style>
 </head>
-<body>
-  <h1>Will you be my sarvulu in this season of my life?</h1>
-  <p>Go on with 👀... try clicking on NO</p>
 
-  <div>
-    <button id="yesBtn">YES</button>
-    <button id="noBtn">NO</button>
+<body>
+
+  <div class="card">
+
+    <!-- Animated Cat -->
+    <div class="cat">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="cat-face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+      </div>
+    </div>
+
+    <h1>
+      Will you be my Sarvulu<br>
+      in this season of my life?
+    </h1>
+
+    <p>
+      Go on… click No 👀 Let’s see how brave you really are.
+    </p>
+
+    <button class="yes" onclick="sayYes()">Yes</button>
+    <button class="no">No</button>
+
   </div>
 
-  <img id="chick" class="egg" src="https://i.imgur.com/7M8d2qK.png" alt="chick hatching">
-
-  <div id="note">Let's take it one step at a time ❤️</div>
-
   <script>
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const chick = document.getElementById('chick');
-    const note = document.getElementById('note');
+    const yesBtn = document.querySelector('.yes');
+    const noBtn = document.querySelector('.no');
 
-    let yesSize = 1;
+    // Multiple NO messages
     const noMessages = [
       "Are you sure?",
       "Reconsider your decision wisely",
@@ -128,38 +158,49 @@
       "Last chance to click YES!"
     ];
     let clickCount = 0;
+    let yesScale = 1;
 
-    // Generate floating sunflowers
-    for (let i = 0; i < 8; i++) {
-      const sf = document.createElement('img');
-      sf.src = 'https://i.imgur.com/4QfKuz1.png'; // sunflower PNG
-      sf.classList.add('sunflower');
-      sf.style.top = Math.random() * 80 + '%';
-      sf.style.left = Math.random() * 90 + '%';
-      sf.style.width = 50 + Math.random() * 50 + 'px';
-      sf.style.animationDuration = 3 + Math.random() * 4 + 's';
-      document.body.appendChild(sf);
+    function sayYes() {
+      document.body.innerHTML = `
+        <div style="
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+          font-family:Arial;
+          text-align:center;">
+          <div style="
+            background:white;
+            padding:40px;
+            border-radius:22px;
+            box-shadow:0 12px 30px rgba(0,0,0,0.2);">
+            <h1 style="color:#ff4d6d;">Thank you 🤍</h1>
+            <p style="color:#555;">
+              I’m really glad you’re here.<br>
+              We’ll take this gently, one day at a time.
+            </p>
+          </div>
+        </div>
+      `;
     }
 
+    // NO button click cycles messages & grows YES button
     noBtn.addEventListener('click', () => {
-      yesSize += 0.2;
-      yesBtn.style.transform = `scale(${yesSize})`;
-
-      if (clickCount < noMessages.length) {
+      if(clickCount < noMessages.length){
         noBtn.textContent = noMessages[clickCount];
       } else {
         noBtn.textContent = "Can't resist YES 😉";
       }
       clickCount++;
 
-      chick.style.bottom = `${20 + Math.min(clickCount * 15, 100)}px`;
+      yesScale += 0.2;
+      yesBtn.style.transform = `scale(${yesScale})`;
     });
 
-    yesBtn.addEventListener('click', () => {
-      alert("Yay! You made the right choice ❤️");
-      note.style.opacity = 1;
-      chick.classList.add('hatched');
-    });
+    // Optional: remove the runaway effect if you just want multiple NO messages
+    // If you still want the mousemove scaling, you can combine them as well
   </script>
+
 </body>
 </html>
