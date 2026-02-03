@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ministry of Important Decisions</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #eaf4ff; /* baby blue */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      width: 420px;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .header {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1f3a5f;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      font-size: 16px;
+      color: #334e68;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .yes {
+      background: #4da3ff;
+      color: white;
+      font-weight: 600;
+    }
+
+    .no {
+      background: #e2e8f0;
+      color: #334e68;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <div class="header">🏛️ Ministry of Important Decisions</div>
+
+    <div class="question">
+      Have you thought about this decision very, very carefully?
+    </div>
+
+    <div class="buttons">
+      <button class="yes">YES</button>
+      <button class="no">NO</button>
+    </div>
+  </div>
+</body>
+</html>
